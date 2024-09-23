@@ -1,0 +1,5 @@
+
+
+1 . Add Image Upload Mechanism Using Cloudinary .
+
+2 . Implement Delete option .

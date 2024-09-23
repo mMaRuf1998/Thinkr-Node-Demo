@@ -1,0 +1,74 @@
+<% layout("/layout/boilerplate") -%>
+    <div class="row p-3">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 mt-5 mb-3">
+            <h2>Edit Items</h2>
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+    <div class="formContainer mx-auto class">
+        <form action="/list/<%= itemSelected.id %>/details?_method=PATCH" method="post" class="needs-validation"
+            novalidate enctype="multipart/form-data">
+
+            <div class="form-group row">
+                <label for="name" class="col-sm-3 col-form-label text-right">Item </label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="name" placeholder="Item Name" name="product[name]" required
+                        value="<%=itemSelected.name%>">
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label for="qty" class="col-sm-3 col-form-label text-right">Quantity </label>
+                <div class="col-sm-7">
+                    <input type="text" class="form-control" id="qty" placeholder="Quantity" name="product[qty]" required
+                        value="<%=itemSelected.qty%>">
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label for=" price" class="col-sm-3 col-form-label text-right">Unit Price</label>
+                <div class="col-sm-7">
+                    <input type="text" id="u_price" class="form-control" placeholder="Unit Price" name="product[u_price]"
+                        required value="<%=itemSelected.u_price%>">
+                </div>
+            </div>
+
+            <div class="form-group row mt-4">
+                <label for=" price" class="col-sm-3 col-form-label text-right">Images</label>
+                <div class="col-sm-7">
+                    <input type="file" id="product[image]" class="form-control" name="product[image]"
+                         multiple>
+
+                    
+                </div>
+            </div>
+            <% if(itemSelected.images.length>0){ %>
+            <div class="form-group mt-4 d-flex justify-content-center">
+                <% for(let i=0 ; i<itemSelected.images.length ; i++){ %>
+                    <div class="form-check d-flex flex-column">
+                       
+                        <label class="form-check-label mb-3" for="image<%=i%>"><input class="form-check-input mx-3" type="checkbox" name="deleteImage[]" value="<%=itemSelected.images[i].filename%>" id="image<%=i%>">Image <%=i+1%></label>
+                        <img src="<%=itemSelected.images[i].thumbnail()%>"  alt="...">
+                         
+                    
+                     
+                    </div>
+                
+                  <% } %>
+            </div>
+            <% } %>
+
+
+
+          
+
+            <button class="btn btn-success mt-4">Update</button>
+
+        </form>
+    </div>
+
+
+
+    </body>
+
+    </html>

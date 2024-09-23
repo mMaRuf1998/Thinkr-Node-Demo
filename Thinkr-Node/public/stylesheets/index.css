@@ -1,0 +1,37 @@
+.header {
+    background-color: rgb(98, 175, 243);
+}
+
+
+
+.container {
+
+    text-align: center;
+
+}
+
+
+
+.btn a {
+    color: white;
+}
+
+a:hover {
+    text-decoration: none;
+
+}
+
+
+.content {
+    display: flex;
+
+}
+
+.formContainer {
+    width: 60%;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}

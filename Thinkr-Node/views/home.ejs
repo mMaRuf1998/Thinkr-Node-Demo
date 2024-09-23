@@ -1,0 +1,62 @@
+<% layout("/layout/boilerplate") -%>
+
+    <div class="row p-3">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6 mt-5 mb-3">
+            <h2>List of Items</h2>
+        </div>
+        <div class="col-sm-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 mb-3">
+            <table class="table table-hover  table-bordered">
+                <tr>
+                    <th class="align-middle">Name</th>
+                    <th class="align-middle">Quantity</th>
+                    <th class="align-middle">Unit Price</th>
+                    <th class="align-middle">Price
+                        <a href="/list?sorted=aesc">&darr;</a>
+                        <a href="/list?sorted=desc">&uarr;</a>
+                    </th>
+                    <th class="align-middle">More</th>
+                </tr>
+                <% let totalPrice=0 ; %>
+                    <%for(let item of itemList) {%>
+                        <% totalPrice+=item.price %>
+                            <tr>
+                                <td class="align-middle">
+                                    <%=item.name%>
+                                </td>
+                                <td class="align-middle">
+                                    <%=item.qty%>
+                                </td>
+                                <td class="align-middle">
+                                    <%=item.u_price%>
+                                </td>
+                                <td class="align-middle">
+                                    <%=item.price%>
+                                </td>
+                                </td>
+                                <td class="align-middle">
+                                    <button type="button" class="btn btn-info"><a
+                                            href="/list/<%=item._id%>/details">Details</a></button>
+                                </td>
+                            </tr>
+                            <%}%>
+                                <tr>
+                                    <th colspan="3" class="align-middle">Total</th>
+                                    <th class="align-middle">
+                                        <%=totalPrice%>
+                                    </th>
+                                    <td class="align-middle">
+                                        <button type="button" class="btn btn-success"><a href="#">Checkout</a></button>
+                                    </td>
+                                </tr>
+            </table>
+
+
+            <button class="btn btn-success mt-4"><a href="/list/new">Add New Item</a></button>
+        </div>
+    </div>

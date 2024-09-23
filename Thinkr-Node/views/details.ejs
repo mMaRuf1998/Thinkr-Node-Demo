@@ -1,0 +1,161 @@
+<% layout("/layout/boilerplate") -%>
+    <div class="col-8 offset-2">
+
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">
+                    <%=itemSelected.name%>
+                </h5>
+                <div class="col-6 offset-3">
+
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    
+                       
+                        <div class="carousel-inner">
+                        <% for(let i=0 ; i<itemSelected.images.length ; i++){ %>
+                          <div class="carousel-item <%=(i===0)?"active":""%>">
+                            <img src="<%= itemSelected.images[i].thumbnail() %>" class="p-3" alt="...">
+                          </div>
+                        <% } %>
+                        </div>
+                       
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
+                      </div>
+
+
+    
+                   
+                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-hover  table-bordered ">
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Author</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <%=itemSelected.name%>
+                        </td>
+                        <td>
+                            <%=itemSelected.qty%>
+                        </td>
+                        <td>
+                            <%=itemSelected.u_price%>
+                        </td>
+                        <td>
+                            <%=itemSelected.price%>
+                        </td>
+                        <td>
+                            <%=itemSelected.category%>
+                        </td>
+                        <td>
+                            <%=itemSelected.author.username%>
+                        </td>
+                    </tr>
+                </table>
+                <div class="formEdit">
+                    <div class="flex-container">
+                        <div class="formClass mr-1">
+                            <form action="/list">
+                                <button class="btn btn-success mt-4">Home</button>
+                            </form>
+                        </div>
+                        <% if(currentUser && currentUser._id.equals(itemSelected.author._id)){ %>
+                        <div class="formClass mr-1">
+                            <form action="/list/<%=itemSelected.id%>/edit">
+                                <button class="btn btn-info mx-2 mt-4">Edit</button>
+                            </form>
+                        </div>
+                        
+                       
+
+                        <div class="formClass">
+                            <form action="/list/<%=itemSelected.id%>/delete?_method=DELETE" method="post">
+                                <button class="btn btn-danger mt-4">Delete</button>
+                            </form>
+                        </div>
+
+                    <% } %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% if(currentUser){ %>
+        <div class="card">
+            <div class="card-body">
+                <h3 class="text-start mb-3">Leave a review</h3>
+
+                <form action="/list/<%=itemSelected._id%>/details/reviews" method="post">
+
+                    <div class="input-group mb-3">
+
+                        
+                        <legend class="text-start">Rating  </legend>
+                        <fieldset class="starability-basic">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                            <input type="radio" id="second-rate1" name="review[rating]" value="1" />
+                            <label for="second-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="second-rate2" name="review[rating]" value="2" />
+                            <label for="second-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="second-rate3" name="review[rating]" value="3" />
+                            <label for="second-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="second-rate4" name="review[rating]" value="4" />
+                            <label for="second-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="second-rate5" name="review[rating]" value="5" />
+                            <label for="second-rate5" title="Amazing">5 stars</label>
+                          </fieldset>
+
+
+
+                    </div>
+                    <div class="input-group">
+
+                        <span class="input-group-text">Review</span>
+                        <textarea class="form-control" aria-label="With textarea" name="review[description]"></textarea>
+                    </div>
+                    <button class="btn btn-success mt-4">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <% } %>
+
+        <% for(let review of itemSelected.reviews) {%>
+
+            <div class="card mb-3 ">
+                <div class="card-body text-start">
+                    
+                    <h5 class="card-text"> <%=review.author.username%></h5>
+                    <p class="starability-result" data-rating="<%=review.rating%>"></p>
+                    
+                    <p><%=review.description%></p>
+                    
+                    <% if(currentUser && currentUser._id.equals(review.author._id)){ %>
+                    <form action="/list/<%=itemSelected._id%>/details/reviews/<%=review._id%>?_method=DELETE" method="post">
+                        <button class="btn-sm btn-danger mt-4">Delete</button>
+                    </form>
+                    <% } %>
+                    
+                    
+                </div>
+            </div>
+            <% } %>
+
+    </div>

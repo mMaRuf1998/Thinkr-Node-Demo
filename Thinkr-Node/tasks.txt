@@ -1,0 +1,9 @@
+Tasks To be done :
+
+
+1. Breakdown the routes . 
+2. Add Login Register route
+3. Create a User Schema
+4. Use Passport to Login
+5. Keep the person logged in , restrict his access .
+
